@@ -1,0 +1,40 @@
+{
+  "presets": [    
+    "@babel/env",
+    "@babel/typescript"
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-typescript",
+      {
+        allowDeclareFields: true,
+      },
+    ],
+    ["@babel/transform-runtime"],
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
+    [
+      "module-resolver",
+      {
+        "root": ["./src/"],
+        "alias": {
+          "bin": "./src/bin",
+          "config": "./src/config",
+          "constants": "./src/constants",
+          "controllers": "./src/controllers",
+          "helpers": "./src/helpers",
+          "interfaces": "./src/interfaces",
+          "jobs": "./src/jobs",
+          "middlewares": "./src/middlewares",
+          "migrations": "./src/migrations",
+          "models": "./src/models",
+          "modules": "./src/modules",
+          "routes": "./src/routes",
+          "utils": "./src/utils",
+          "views": "./src/views"
+        },
+        "extensions": [".js", ".ts"]
+      }
+    ]
+  ]
+}

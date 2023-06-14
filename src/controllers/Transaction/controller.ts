@@ -1,0 +1,21 @@
+/* eslint-disable no-await-in-loop */
+import { Request, Response } from 'express';
+import routes from 'routes/public';
+import asyncHandler from 'helpers/asyncHandler';
+import Authorization from 'middlewares/Authorization';
+import BuildResponse from 'modules/Response/BuildResponse';
+import TransactionService from 'controllers/Transaction/service';
+import { TransactionSearchAttributes } from 'types/api';
+
+routes.get(
+  '/transactions',
+  Authorization,
+  asyncHandler(async (req: Request, res: Response): Promise<any> => {
+    const searchParams: TransactionSearchAttributes = req.getQuery();
+
+    const data = await TransactionService.search(req, searchParams);
+    const buildResponse = BuildResponse.get(data);
+
+    return res.status(200).json(buildResponse);
+  })
+)

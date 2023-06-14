@@ -1,0 +1,184 @@
+module.exports = {
+  '/auth/sign-up': {
+    post: {
+      tags: ['Auth'],
+      summary: 'Create New Account',
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                name: {
+                  type: 'string',
+                },
+                lname: {
+                  type: 'string',
+                },
+                email: {
+                  type: 'string',
+                },
+                newPassword: {
+                  type: 'string',
+                },
+                confirmNewPassword: {
+                  type: 'string',
+                },
+                phone: {
+                  type: 'string',
+                },
+              },
+              required: [
+                'name',
+                'lname',
+                'email',
+                'newPassword',
+                'confirmNewPassword',
+                'phone',
+              ],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Create New Account',
+        },
+      },
+    },
+  },
+  '/auth/sign-in': {
+    post: {
+      tags: ['Auth'],
+      summary: 'Login Your Account',
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                email: {
+                  type: 'string',
+                },
+                password: {
+                  type: 'string',
+                },
+              },
+              required: ['email', 'password'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Login Your Account',
+        },
+      },
+    },
+  },
+  '/auth/refresh-token': {
+    post: {
+      tags: ['Auth'],
+      summary: 'Get Access Token',
+      produces: ['application/json'],
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                email: {
+                  type: 'string',
+                },
+                refreshToken: {
+                  type: 'string',
+                },
+              },
+              required: ['email', 'refreshToken'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Get Access Token from Refresh Token',
+        },
+      },
+    },
+  },
+  '/auth/verify-session': {
+    get: {
+      tags: ['Auth'],
+      summary: 'Verify Session',
+      produces: ['application/json'],
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Verify Session',
+        },
+      },
+    },
+  },
+  '/profile': {
+    get: {
+      tags: ['Auth'],
+      summary: 'Get Profile',
+      produces: ['application/json'],
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Get Profile',
+        },
+      },
+    },
+  },
+  '/logout': {
+    post: {
+      tags: ['Auth'],
+      summary: 'Logout',
+      produces: ['application/json'],
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                userId: {
+                  type: 'number',
+                },
+              },
+              required: ['userId'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Terminate your api access',
+        },
+      },
+    },
+  },
+}
